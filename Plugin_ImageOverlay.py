@@ -3,7 +3,7 @@
 # Description
 # ===========
 #
-# Scale an image and then set its size so that is 1920 x 1080 in resolution.
+# GIMP Plugin to overlay an image on top of another.
 #
 #
 # Running this Plugin from the command line
@@ -201,7 +201,7 @@ def runPlugin_multiple_fromList(
 
 	This function will overlay a single foreground image onto a single background image. Once this is done, it
 	will save the modified background image into a file. This process is repeated for all of the foreground images
-	whose filenames are specified in the list of semi-colon separated filenames.
+	whose filenames are specified in the list of semi-colon separated foreground filenames.
 
 
 	Parameters:
