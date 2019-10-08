@@ -28,16 +28,16 @@ To invoke this Plugin from the command line, use a command which is similar to t
 >      --console-messages \
 >      --batch-interpreter="plug-in-script-fu-eval" \
 >      --batch '(
->                python-fu-runPlugin-multiple-fromList
->                RUN-NONINTERACTIVE
->                "/home/craig/local/source/GitHub_projects/c-sanders/Animation_build/slides/png/Eulers_formula_animation_slides-000001.png"
->                "READ_LIST_FROM_STDIN"
->                ""
->                "/home/craig/temp/Animation_images_png/"
->                "PREPEND_FILENAME"
->                "Slide_"
->                "DIAGNOSTIC_DATA_NONE"
->               )' \
+>                python-fu-runPlugin-multiple-fromList  
+>                RUN-NONINTERACTIVE  
+>                "/home/craig/local/source/GitHub_projects/c-sanders/Animation_build/slides/png/Eulers_formula_animation_slides-000001.png"  
+>                "READ_LIST_FROM_STDIN"  
+>                ""  
+>                "/home/craig/temp/Animation_images_png/"  
+>                "PREPEND_FILENAME"  
+>                "Slide_"  
+>                "DIAGNOSTIC_DATA_NONE"  
+>               )' \  
 >      --batch '(gimp-quit 0)'
 
 The arguments to a batch sub-command should be placed within the sub-command's parentheses. It appears as though these arguments get passed directly to
