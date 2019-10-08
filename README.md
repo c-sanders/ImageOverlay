@@ -14,9 +14,9 @@ Start by opening the background image within GIMP. Then click on;
 
   Image > Craig's Utilities > Overlay Image
 
-Doing this should cause a window to be displayed. 
+Doing this should cause the following panel to be displayed. 
 
-![Test image](./images/Test.png)
+![Test image](/images/Test.png)
 
 
 Invoking this Plugin non-interactively from the command line
