@@ -194,11 +194,14 @@ def runPlugin_multiple_fromList(
   display_stdout_or_dialog
 ) :
 
+	#---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------
+
 	"""
 	This function gets registered with GIMP as it implements the following Plugin : Overlay Images (From List)
 
-	This function will overlay a single foreground image onto a single background image. Once this is done, the function will save the resulting image into a file.
-	This process is repeated for all of the foreground images whose filenames are specified in the list of semi-colon separated filenames.
+	This function will overlay a single foreground image onto a single background image. Once this is done, it
+	will save the modified background image into a file. This process is repeated for all of the foreground images
+	whose filenames are specified in the list of semi-colon separated filenames.
 
 
 	Parameters:
@@ -542,9 +545,12 @@ class OverlayImageAgent :
 	  self
 	) :
 
+		#---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|
+
 		"""
-		Copy and paste the foreground image onto the background image, flatten the background image down into one layer, and
-		then save the result to file. This process is repeated for each foreground image which is passed to this method.
+		Copy and paste the foreground image onto the background image, flatten the background image down into
+		one layer, and then save the result to file. This process is repeated for each foreground image which
+		is passed to this method. Poop.
 
 
 		Parameters:
