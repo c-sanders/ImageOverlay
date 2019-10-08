@@ -44,5 +44,5 @@ The arguments to a batch sub-command should be placed within the sub-command's p
 GIMP, therefore they should not contain any shell special or control characters. For example, if the arguments contained one or more instances of the '\'
 character, then GIMP might not know how to interpret them and this could cause an error such as;
 
-  batch command experienced an execution error:
-  Error: ( : 1) eval: unbound variable: \
+> batch command experienced an execution error:
+> Error: ( : 1) eval: unbound variable: \
