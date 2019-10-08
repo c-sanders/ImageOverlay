@@ -7,8 +7,8 @@ the image that is being overlaid onto, is referred to as the background image.
 This Plugin can either be invoked interactively from within GIMP, or non-interactively from the command line.
 
 
-Invoking this Plugin from within GIMP
--------------------------------------
+Invoking this Plugin interactively from within GIMP
+---------------------------------------------------
 
 Start by opening the background image within GIMP. Then click on;
 
@@ -17,8 +17,8 @@ Start by opening the background image within GIMP. Then click on;
 Doing this should ...
 
 
-Invoking this Plugin from the command line
-------------------------------------------
+Invoking this Plugin non-interactively from the command line
+------------------------------------------------------------
 
 To invoke this Plugin from the command line, use a command which is similar to the following;
 
@@ -40,7 +40,7 @@ To invoke this Plugin from the command line, use a command which is similar to t
 	              )' \
 	     --batch '(gimp-quit 0)'
 
-The arguments to a batch sub-command should be placed within the sub-command's parentheses. It appears as though these arguments get passed directly to
+The arguments to a batch sub-command should be placed within the batch sub-command's parentheses. It appears as though these arguments get passed directly to
 GIMP, therefore they should not contain any shell special or control characters. For example, if the arguments contained one or more instances of the '\'
 character, then GIMP might not know how to interpret them and this could cause an error such as;
 
