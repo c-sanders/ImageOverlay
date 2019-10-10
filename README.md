@@ -7,8 +7,8 @@ the image that is being overlaid onto, is referred to as the background image.
 This Plugin can either be invoked interactively from within GIMP, or non-interactively from the command line.
 
 
-Invoking this Plugin interactively from within GIMP
----------------------------------------------------
+Invoking this Plugin interactively from within GIMP.
+----------------------------------------------------
 
 Start by opening the background image within GIMP. Then click on;
 
@@ -19,8 +19,8 @@ Doing this should cause the following panel to be displayed.
 ![Test image](/images/Panel.png)
 
 
-Invoking this Plugin non-interactively from the command line
-------------------------------------------------------------
+Invoking this Plugin non-interactively from the command line.
+-------------------------------------------------------------
 
 To invoke this Plugin from the command line, use a command which is similar to the following;
 
