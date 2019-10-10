@@ -16,7 +16,7 @@ Start by opening the background image within GIMP. Then click on;
 
 Doing this should cause the following panel to be displayed. 
 
-![Test image](/images/Test.png)
+![Test image](/images/Panel.png)
 
 
 Invoking this Plugin non-interactively from the command line
