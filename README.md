@@ -10,7 +10,7 @@ This Plugin can either be invoked interactively from within GIMP, or non-interac
 Invoking this Plugin interactively from within GIMP.
 ----------------------------------------------------
 
-Start by opening the background image within GIMP. Then click on;
+Start by opening the background image within GIMP. Once this is done, select;
 
   Image > Craig's Utilities > Overlay Image
 
