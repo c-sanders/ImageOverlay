@@ -51,8 +51,8 @@ To invoke this Plugin non-interactively, issue a command from the command line w
 > batch command experienced an execution error:
 > Error: ( : 1) eval: unbound variable: \
 
-	find /home/foo/images -name "foreground_image_[0-9].png" | \
-	gimp --no-interface \
+	find /home/foo/images -name "foreground_image_[0-9].png" | \  // Send list of foreground files to stdout.
+	gimp --no-interface \                                         # Invoke GIMP non-interactively.
 	     --verbose \
 	     --console-messages \
 	     --batch-interpreter="plug-in-script-fu-eval" \
