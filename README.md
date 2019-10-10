@@ -79,8 +79,8 @@ As can be seen from the comments, the "READ_LIST_FROM_STDIN" argument to the Plu
 the reason why the input of the gimp command, is connected to the outut of the find command by way of a pipe.
 
 
-How the Plugin is implemented.
-------------------------------
+Registering the Plugin with GIMP.
+---------------------------------
 
 The Plugin is implemented as a function which is called "runPlugin_multiple_fromList".
 
@@ -93,3 +93,17 @@ also needs to know some other information about the Plugin, such as;
 - how the GUI Panel which is associated with the Plugin should be laid out,
 
 
+How the Plugin is implemented.
+------------------------------
+
+	runPlugin-multiple-fromList
+	 |
+	 |- OverlayImageAgent Ctor
+	 |
+	 |- OverlayImageAgent.runMultipleFromList
+	     |
+	     |- OverlayImageAgent.__getForegroundImageAndDrawable
+	     |
+	     |- OverlayImageAgent.__displayDiagnosticData
+	     |
+	     |- OverlayImageAgent.__run
