@@ -51,21 +51,21 @@ To invoke this Plugin non-interactively, issue a command from the command line w
 > batch command experienced an execution error:
 > Error: ( : 1) eval: unbound variable: \
 
-	find /home/foo/images -name "foreground_image_[0-9].png" | \  # Send list of foreground files to stdout.
-	gimp --no-interface \                                         # Invoke GIMP in a non-interactive manner.
-	     --verbose \                                              # Invoke GIMP in a verbose manner.
+	find /home/foo/images -name "foreground_image_[0-9].png" | \  # Send list of foreground image filenames to stdout.
+	gimp --no-interface \                                         # Instruct GIMP to operate in a non-interactive manner.
+	     --verbose \                                              # Instruct GIMP to operate in a verbose manner.
 	     --console-messages \                                     # Instruct GIMP to display console messages.
 	     --batch-interpreter="plug-in-script-fu-eval" \           # Instruct GIMP to use Python-Fu to interpret any batch commands.
 	     --batch '(                                               # Start a batch command.
 	               python-fu-runPlugin-multiple-fromList          # Name of the Plugin to execute.
 	               RUN-NONINTERACTIVE                             # Run the Plugin in a non-interactive manner.
 	               "/home/foo/images/background_image.png"        # Filename which contains the background image.
-	               "READ_LIST_FROM_STDIN"                         # Read the list of filenames which contains foreground images from stdin.
+	               "READ_LIST_FROM_STDIN"                         # Read the list of foreground image filenames from stdin.
 	               ""                                             #
 	               "/home/craig/temp/Animation_images_png/"       # Directory to save files into.
-	               "PREPEND_FILENAME"       
-	               "Slide_"
-	               "DIAGNOSTIC_DATA_NONE"
+	               "PREPEND_FILENAME"                             # Create new filenames by prepending a suffix to existing filenames.
+	               "Slide_"                                       # Suffix to use.
+	               "DIAGNOSTIC_DATA_NONE"                         # Instruct the Plugin to not generate diagnostic data.
 	              )' \
 	     --batch '(gimp-quit 0)'
 
