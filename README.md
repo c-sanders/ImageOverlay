@@ -51,14 +51,14 @@ To invoke this Plugin non-interactively, issue a command from the command line w
 > batch command experienced an execution error:
 > Error: ( : 1) eval: unbound variable: \
 
-	find /home/foo/images -name "foreground_image_[0-9].png" | \  // Send list of foreground files to stdout.
-	gimp --no-interface \                                         # Invoke GIMP non-interactively.
-	     --verbose \
-	     --console-messages \
-	     --batch-interpreter="plug-in-script-fu-eval" \
-	     --batch '(
-	               python-fu-runPlugin-multiple-fromList
-	               RUN-NONINTERACTIVE
+	find /home/foo/images -name "foreground_image_[0-9].png" | \  # Send list of foreground files to stdout.
+	gimp --no-interface \                                         # Invoke GIMP in a non-interactive manner.
+	     --verbose \                                              # Invoke GIMP in a verbose manner.
+	     --console-messages \                                     # Instruct GIMP to display console messages.
+	     --batch-interpreter="plug-in-script-fu-eval" \           # Instruct GIMP to use PythonFu to interpret any batch commands.
+	     --batch '(                                               # Start a batch command.
+	               python-fu-runPlugin-multiple-fromList          # Name of the Plugin to execute.
+	               RUN-NONINTERACTIVE                             # 
 	               "/home/foo/images/background_image.png"
 	               "READ_LIST_FROM_STDIN"
 	               ""
