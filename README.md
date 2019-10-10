@@ -24,7 +24,7 @@ Invoking this Plugin non-interactively from the command line.
 
 To invoke this Plugin non-interactively, issue a command from the command line which is similar to the following;
 
-	find /home/craig/Pictures/ -name "Wicket the Ewok.jpeg" | \
+	find /home/foo/images -name "foreground_image_[0-9].png" | \
 	gimp --no-interface \
 	     --verbose \
 	     --console-messages \
@@ -32,7 +32,7 @@ To invoke this Plugin non-interactively, issue a command from the command line w
 	     --batch '(
 	               python-fu-runPlugin-multiple-fromList
 	               RUN-NONINTERACTIVE
-	               "/home/craig/local/source/GitHub_projects/c-sanders/Animation_build/slides/png/Eulers_formula_animation_slides-000001.png"
+	               "/home/foo/images/background_image.png"
 	               "READ_LIST_FROM_STDIN"
 	               ""
 	               "/home/craig/temp/Animation_images_png/"
@@ -42,7 +42,7 @@ To invoke this Plugin non-interactively, issue a command from the command line w
 	              )' \
 	     --batch '(gimp-quit 0)'
 
-> A quick note about this command.
+> A quick note about the syntax of this command.
 >
 > The arguments to a batch sub-command should be placed within the batch sub-command's parentheses. It appears as though these arguments get passed directly to
 > GIMP, therefore they should not contain any shell special or control characters. For example, if the arguments contained one or more instances of the "\\"
@@ -51,3 +51,27 @@ To invoke this Plugin non-interactively, issue a command from the command line w
 > batch command experienced an execution error:
 > Error: ( : 1) eval: unbound variable: \
 
+	find /home/foo/images -name "foreground_image_[0-9].png" | \
+	gimp --no-interface \
+	     --verbose \
+	     --console-messages \
+	     --batch-interpreter="plug-in-script-fu-eval" \
+	     --batch '(
+	               python-fu-runPlugin-multiple-fromList
+	               RUN-NONINTERACTIVE
+	               "/home/foo/images/background_image.png"
+	               "READ_LIST_FROM_STDIN"
+	               ""
+	               "/home/craig/temp/Animation_images_png/"
+	               "PREPEND_FILENAME"
+	               "Slide_"
+	               "DIAGNOSTIC_DATA_NONE"
+	              )' \
+	     --batch '(gimp-quit 0)'
+
+The Plugin is invoked in such a way that it reads its list of files to operate on from stdin. This is the reason why the input of the gimp command, is connected
+to the outut of the find command by way of a pipe.
+
+
+The Plugin is instructed to do so by way of the "READ_LIST_FROM_STDIN"
+sub-command argument.
