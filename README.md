@@ -85,5 +85,11 @@ How the Plugin is implemented.
 The Plugin is implemented as a function which is called "runPlugin_multiple_fromList".
 
 Since it is this function which is responsible for implementing the Plugin, it must therefore be registered with GIMP. As part of the registration process, GIMP
-also
+also needs to know some other information about the Plugin, such as;
+
+- a short description which is to be associated with the Plugin,
+- a short Help message which is to be assocaited with the Plugin,
+- whereabouts within its Menu system GIMP should place a menu entry for this Plugin,
+- how the GUI Panel which is associated with the Plugin should be laid out,
+
 
