@@ -10,7 +10,7 @@ This Plugin can either be invoked interactively from within GIMP, or non-interac
 Invoking this Plugin interactively from within GIMP.
 ----------------------------------------------------
 
-Start by opening the background image within GIMP. Once this is done, select;
+To invoke this Plugin interactively, start up GIMP and then use it to open the background image. Once this is done, select;
 
   Image > Craig's Utilities > Overlay Image
 
@@ -22,7 +22,7 @@ Doing this should cause the following panel to be displayed.
 Invoking this Plugin non-interactively from the command line.
 -------------------------------------------------------------
 
-To invoke this Plugin from the command line, use a command which is similar to the following;
+To invoke this Plugin non-interactively, issue a command from the command line which is similar to the following;
 
 	find /home/craig/Pictures/ -name "Wicket the Ewok.jpeg" | \
 	gimp --no-interface \
@@ -42,9 +42,12 @@ To invoke this Plugin from the command line, use a command which is similar to t
 	              )' \
 	     --batch '(gimp-quit 0)'
 
-The arguments to a batch sub-command should be placed within the batch sub-command's parentheses. It appears as though these arguments get passed directly to
-GIMP, therefore they should not contain any shell special or control characters. For example, if the arguments contained one or more instances of the "\\"
-character, then GIMP might not know how to interpret them, and this could cause an error such as;
-
+> A quick note about this command.
+>
+> The arguments to a batch sub-command should be placed within the batch sub-command's parentheses. It appears as though these arguments get passed directly to
+> GIMP, therefore they should not contain any shell special or control characters. For example, if the arguments contained one or more instances of the "\\"
+> character, then GIMP might not know how to interpret them, and this could cause an error such as;
+>
 > batch command experienced an execution error:
 > Error: ( : 1) eval: unbound variable: \
+
