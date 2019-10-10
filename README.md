@@ -16,7 +16,7 @@ To invoke this Plugin interactively, start up GIMP and then use it to open the b
 
 Doing this should cause the following panel to be displayed. 
 
-![Test image](/images/Panel.png)
+![Test image](/images/Panel.png "Panel displayed by the Plugin")
 
 
 Invoking this Plugin non-interactively from the command line.
@@ -53,7 +53,7 @@ To invoke this Plugin non-interactively, issue a command from the command line w
 > batch command experienced an execution error:
 > Error: ( : 1) eval: unbound variable: \
 
-The command which was just presented, might seem a little overwhelming. So to try and help explain what it is doing, here is the same command - but with comments added.
+The command which was just presented, might seem a little overwhelming. So to try and help explain what it is doing, here is the same command but with comments added.
 
 	find /home/foo/images -name "foreground_image_[0-9].png" | \  # Send list of foreground image filenames to stdout.
 	gimp --no-interface \                                         # Instruct GIMP to operate without using its (graphical user) interface. This causes GIMP to execute in a non-interactve manner.
@@ -77,5 +77,7 @@ The command which was just presented, might seem a little overwhelming. So to tr
 
 As can be seen from the comments, the "READ_LIST_FROM_STDIN" argument to the Plugin, forces it to read the list of foreground image filenames from stdin. This is
 the reason why the input of the gimp command, is connected to the outut of the find command by way of a pipe.
+
+
 
 
