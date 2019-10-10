@@ -79,5 +79,11 @@ As can be seen from the comments, the "READ_LIST_FROM_STDIN" argument to the Plu
 the reason why the input of the gimp command, is connected to the outut of the find command by way of a pipe.
 
 
+How the Plugin is implemented.
+------------------------------
 
+The Plugin is implemented as a function which is called "runPlugin_multiple_fromList".
+
+Since it is this function which is responsible for implementing the Plugin, it must therefore be registered with GIMP. As part of the registration process, GIMP
+also
 
