@@ -51,6 +51,8 @@ To invoke this Plugin non-interactively, issue a command from the command line w
 > batch command experienced an execution error:
 > Error: ( : 1) eval: unbound variable: \
 
+The command which was just presented might seem a little overwhelming, so here is the same command - but with comments added, to help explain things.
+
 	find /home/foo/images -name "foreground_image_[0-9].png" | \  # Send list of foreground image filenames to stdout.
 	gimp --no-interface \                                         # Instruct GIMP to operate in a non-interactive manner.
 	     --verbose \                                              # Instruct GIMP to operate in a verbose manner.
