@@ -55,15 +55,15 @@ To invoke this Plugin non-interactively, issue a command from the command line w
 	gimp --no-interface \                                         # Invoke GIMP in a non-interactive manner.
 	     --verbose \                                              # Invoke GIMP in a verbose manner.
 	     --console-messages \                                     # Instruct GIMP to display console messages.
-	     --batch-interpreter="plug-in-script-fu-eval" \           # Instruct GIMP to use PythonFu to interpret any batch commands.
+	     --batch-interpreter="plug-in-script-fu-eval" \           # Instruct GIMP to use Python-Fu to interpret any batch commands.
 	     --batch '(                                               # Start a batch command.
 	               python-fu-runPlugin-multiple-fromList          # Name of the Plugin to execute.
-	               RUN-NONINTERACTIVE                             # 
-	               "/home/foo/images/background_image.png"
-	               "READ_LIST_FROM_STDIN"
-	               ""
-	               "/home/craig/temp/Animation_images_png/"
-	               "PREPEND_FILENAME"
+	               RUN-NONINTERACTIVE                             # Run the Plugin in a non-interactive manner.
+	               "/home/foo/images/background_image.png"        # Filename which contains the background image.
+	               "READ_LIST_FROM_STDIN"                         # Read the list of filenames which contains foreground images from stdin.
+	               ""                                             #
+	               "/home/craig/temp/Animation_images_png/"       # Directory to save files into.
+	               "PREPEND_FILENAME"       
 	               "Slide_"
 	               "DIAGNOSTIC_DATA_NONE"
 	              )' \
