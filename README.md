@@ -1,4 +1,4 @@
-GIMP Plugin to overlay one image on top of another.
+GIMP Plugin to overlay one Image on top of another.
 ===================================================
 
 Throughout the remainder of this documentation, the image that is being overlaid on top of another image, is referred to as the foreground image; while
