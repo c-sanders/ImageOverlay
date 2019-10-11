@@ -25,6 +25,7 @@ Invoking this Plugin non-interactively from the command line.
 To invoke this Plugin non-interactively, issue a command from the command line which is similar to the following;
 
 	find /home/foo/images -name "foreground_image_[0-9].png" | \
+	sort | \
 	gimp --no-interface \
 	     --verbose \
 	     --console-messages \
@@ -55,7 +56,8 @@ To invoke this Plugin non-interactively, issue a command from the command line w
 
 The command which was just presented, might seem a little overwhelming. So to try and help explain what it is doing, here is the same command but with comments added.
 
-	find /home/foo/images -name "foreground_image_[0-9].png" | \  # Redirect the list of foreground image filenames to stdout.
+	find /home/foo/images -name "foreground_image_[0-9].png" | \  # Find the foreground image filenames of interest and redirect them.
+	sort | \                                                      # Sort the list of foreground image filenmes.
 	gimp --no-interface \                                         # Instruct GIMP to operate without using its (graphical user) interface. This causes GIMP to execute in a non-interactive manner.
 	     --verbose \                                              # Instruct GIMP to operate in a verbose manner.
 	     --console-messages \                                     # Instruct GIMP to process console messages.
