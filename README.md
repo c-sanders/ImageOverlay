@@ -121,3 +121,9 @@ How the Plugin is implemented.
 	         |- OverlayImageAgent.__displayDiagnosticData
 	         |
 	         |- OverlayImageAgent.__flattenAndSaveImage
+	             |
+	             |- OverlayImageAgent.__displayDiagnosticData
+	             |
+	             |- OverlayImageAgent.__pauseAndProgressDisplay
+	             |
+	             |- OverlayImageAgent.__pauseAndProgressDisplay
