@@ -109,3 +109,15 @@ How the Plugin is implemented.
 	     |- OverlayImageAgent.__displayDiagnosticData
 	     |
 	     |- OverlayImageAgent.__run
+	         |
+	         |- OverlayImageAgent.__copyAndPasteForegroundImage
+	         |   |
+	         |   |- OverlayImageAgent.__copyForegroundImageIntoBuffer
+	         |   |
+	         |   |- OverlayImageAgent.__pauseAndProgressDisplay
+	         |
+	         |- OverlayImageAgent.__copyAndPasteForegroundImageAsNew
+	         |
+	         |- OverlayImageAgent.__displayDiagnosticData
+	         |
+	         |- OverlayImageAgent.__flattenAndSaveImage
