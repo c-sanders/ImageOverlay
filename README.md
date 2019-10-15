@@ -31,8 +31,8 @@ the Python Script.
 
 Now, just invoke the following two commands;
 
-   >>> import HelloWorld
-   >>> HelloWorld.displayMessage("Hello, World!")
+	>>> import HelloWorld
+	>>> HelloWorld.displayMessage("Hello, World!")
 
 
 Invoking the GIMP Plugin interactively from within GIMP.
