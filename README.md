@@ -1,12 +1,31 @@
-Python script and associated GIMP Plugin to overlay one Image on top of another.
+Python Script and associated GIMP Plugin to overlay one Image on top of another.
 ================================================================================
 
 Throughout the remainder of this documentation, the image that is being overlaid on top of another image is referred to as the foreground image, while
 the image that is being overlaid onto, is referred to as the background image.
 
-Both the Python script and its associated GIMP Plugin can be used to overlay one Image on top of another.
+Both the Python Script and its associated GIMP Plugin can be used to overlay one Image on top of another.
 
 They can both be invoked either interactively from within GIMP, or non-interactively (aka Btch mode) from the command line.
+
+
+Invoking the Python Script interactively from within GIMP.
+----------------------------------------------------------
+
+To invoke the Python Script interactively, start up GIMP, and then select;
+
+  Filters > Python-Fu > Console
+
+Then, from within the Python Console Window, invoke the following sequence of commands;
+
+	>>> import system
+	>>> print("%s" % (sys.path))
+
+If the directory which contains the Python Script resides within the list of directories which is displayed, then invoke the further
+following sequence of commands;
+
+	>>> import HelloWorld
+	>>> HelloWorld.displayMessage("Hello, World!")
 
 
 Invoking the GIMP Plugin interactively from within GIMP.
@@ -19,14 +38,6 @@ To invoke the GIMP Plugin interactively, start up GIMP and then use it to open t
 Doing this should cause the following panel to be displayed. 
 
 ![Test image](/images/Panel.png "Panel displayed by the Image Overlay Plugin")
-
-
-Invoking the Python script interactively from within GIMP.
-----------------------------------------------------------
-
-To invoke the Python script interactively, start up GIMP, and then select;
-
-  Filters > Python-Fu > Console
 
 
 Invoking this Plugin non-interactively from the command line.
