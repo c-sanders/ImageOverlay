@@ -1,22 +1,30 @@
-GIMP Plugin to overlay one Image on top of another.
-===================================================
+GIMP Plugin and Python script to overlay one Image on top of another.
+=====================================================================
 
-Throughout the remainder of this documentation, the image that is being overlaid on top of another image, is referred to as the foreground image; while
+Throughout the remainder of this documentation, the image that is being overlaid on top of another image is referred to as the foreground image, while
 the image that is being overlaid onto, is referred to as the background image.
 
-This Plugin can either be invoked interactively from within GIMP, or non-interactively from the command line.
+Both the GIMP Plugin and the Python script can either be invoked interactively from within GIMP, or non-interactively (aka Btch mode) from the command line.
 
 
-Invoking this Plugin interactively from within GIMP.
-----------------------------------------------------
+Invoking the GIMP Plugin interactively from within GIMP.
+--------------------------------------------------------
 
-To invoke this Plugin interactively, start up GIMP and then use it to open the background image. Once this is done, select;
+To invoke the GIMP Plugin interactively, start up GIMP and then use it to open the background image. Once this is done, select;
 
   Image > Craig's Utilities > Overlay Image
 
 Doing this should cause the following panel to be displayed. 
 
 ![Test image](/images/Panel.png "Panel displayed by the Image Overlay Plugin")
+
+
+Invoking the Python script interactively from within GIMP.
+----------------------------------------------------------
+
+To invoke the Python script interactively, start up GIMP, and then select;
+
+  Filters > Python-Fu > Console
 
 
 Invoking this Plugin non-interactively from the command line.
