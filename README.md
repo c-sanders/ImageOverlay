@@ -21,16 +21,18 @@ Next, from within the Python Console Window, invoke the following two commands;
 	>>> import sys
 	>>> print("%s" % (sys.path))
 
-The second command should display a list of those directories which Python searches for modules. If the directory which contains the Python Script
-is shown in this list, then invoke the following two commands;
+The second command should display a list of those directories which Python searches for modules. If the directory which contains
+the Python Script is not show in this list, then invoke the following command;
 
-	>>> import HelloWorld
-	>>> HelloWorld.displayMessage("Hello, World!")
+	>>> sys.path = <Name_of_dir_containing_Python_Script> + sys.path
 
-If the directory which contains the Python Script is not show in this list, then invoke the following commands;
+This should add - by prepending to the front of the list of directories that Python searches for modules, the directory whics contains
+the Python Script.
 
-	>>> sys.path = <> + sys.path
-	>>>
+Now, just invoke the following two commands;
+
+   >>> import HelloWorld
+   >>> HelloWorld.displayMessage("Hello, World!")
 
 
 Invoking the GIMP Plugin interactively from within GIMP.
