@@ -3,7 +3,7 @@
 # Description
 # ===========
 #
-# GIMP Plugin to overlay an image on top of another.
+# GIMP Plugin to overlay one image on top of another.
 #
 #
 # Running this Plugin from the command line
@@ -71,14 +71,12 @@ from   os     import path
 import time
 from   sys    import stdin
 
+from   gimpfu import register, main, pdb, gimp, PF_IMAGE, PF_DRAWABLE, PF_INT, PF_STRING, PF_FILE, PF_BOOL, INTERPOLATION_NONE, INTERPOLATION_LINEAR, INTERPOLATION_CUBIC, INTERPOLATION_LANCZOS, PF_RADIO
+from   diagnosticDataDialog import DiagnosticDataDialog, DIAGNOSTIC_DATA_STDOUT, DIAGNOSTIC_DATA_DIALOG, DIAGNOSTIC_DATA_BOTH, DIAGNOSTIC_DATA_NONE
+
 SPHINX_ACTIVE = False
 
-if (SPHINX_ACTIVE == False) :
-
-	from   gimpfu import register, main, pdb, gimp, PF_IMAGE, PF_DRAWABLE, PF_INT, PF_STRING, PF_FILE, PF_BOOL, INTERPOLATION_NONE, INTERPOLATION_LINEAR, INTERPOLATION_CUBIC, INTERPOLATION_LANCZOS, PF_RADIO
-	from   diagnosticDataDialog import DiagnosticDataDialog, DIAGNOSTIC_DATA_STDOUT, DIAGNOSTIC_DATA_DIALOG, DIAGNOSTIC_DATA_BOTH, DIAGNOSTIC_DATA_NONE
-
-else :
+if (SPHINX_ACTIVE == True) :
 
 	PF_FILE        = 1004
 	PF_STRING      = 0
@@ -109,6 +107,7 @@ else :
 	) :
 
 		return(0)
+
 
 READ_LIST_FROM_STDIN       = "0"
 READ_LIST_FROM_FIELD       = "1"
@@ -1341,11 +1340,11 @@ register(
 #       OverlayImageAgent.__flattenAndSaveImage
 
 register(
-	"runPlugin_multiple_fromList",                                               # The name of the command.
-	"Overlay a Foreground Image onto a Background Image." +  
-	"\n\n"                                                +
-	"(The Foreground Images to operate on will be read from the field below.)",  # A brief description of the command.
-	"Overlay a Foreground Image onto a Background Image.",                       # Help message.
+	"runPlugin_multiple_fromList",                                                                             # The name of the command.
+	"Overlay one Image on top of another." +                                                                   # A brief description of the command.
+	"\n\n" +
+	"(The Foreground Image filenames to operate on will either be read from stdin or one the fields below.)",
+	"Overlay one Image (the foreground Image) onto another Image (the background Image).",                     # Help message.
 	"Craig Sanders",                                                             # Author.
 	"Craig Sanders",                                                             # Copyright holder.
 	"2019",                                                                      # Date.
