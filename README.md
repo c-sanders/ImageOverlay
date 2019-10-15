@@ -1,12 +1,11 @@
 Python Script and associated GIMP Plugin to overlay one Image on top of another.
 ================================================================================
 
+This repository contains a Python Script and an associated GIMP Plugin. Both of them can be used to overlay one Image on top of another. Furthermore,
+they can both be invoked either interactively from within GIMP, or non-interactively (aka Btch mode) from the command line.
+
 Throughout the remainder of this documentation, the image that is being overlaid on top of another image is referred to as the foreground image, while
 the image that is being overlaid onto, is referred to as the background image.
-
-Both the Python Script and its associated GIMP Plugin can be used to overlay one Image on top of another.
-
-They can both be invoked either interactively from within GIMP, or non-interactively (aka Btch mode) from the command line.
 
 
 Invoking the Python Script interactively from within GIMP.
@@ -26,7 +25,7 @@ the Python Script is not show in this list, then invoke the following command;
 
 	>>> sys.path = <Name_of_dir_containing_Python_Script> + sys.path
 
-This should add - by prepending to the front of the list of directories that Python searches for modules, the directory whics contains
+This should add - by prepending to the front of the list of directories that Python searches for modules, the directory which contains
 the Python Script.
 
 Now, just invoke the following two commands;
