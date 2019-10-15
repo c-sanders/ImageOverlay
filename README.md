@@ -12,20 +12,25 @@ They can both be invoked either interactively from within GIMP, or non-interacti
 Invoking the Python Script interactively from within GIMP.
 ----------------------------------------------------------
 
-To invoke the Python Script interactively, start up GIMP, and then select;
+To invoke the Python Script interactively, start up GIMP and then click;
 
   Filters > Python-Fu > Console
 
-Then, from within the Python Console Window, invoke the following sequence of commands;
+Next, from within the Python Console Window, invoke the following two commands;
 
-	>>> import system
+	>>> import sys
 	>>> print("%s" % (sys.path))
 
-If the directory which contains the Python Script resides within the list of directories which is displayed, then invoke the further
-following sequence of commands;
+The second command should display a list of those directories which Python searches for modules. If the directory which contains the Python Script
+is shown in this list, then invoke the following two commands;
 
 	>>> import HelloWorld
 	>>> HelloWorld.displayMessage("Hello, World!")
+
+If the directory which contains the Python Script is not show in this list, then invoke the following commands;
+
+	>>> sys.path = <> + sys.path
+	>>>
 
 
 Invoking the GIMP Plugin interactively from within GIMP.
