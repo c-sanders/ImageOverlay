@@ -21,14 +21,14 @@ Next, from within the Python Console Window, invoke the following two commands;
 	>>> print("%s" % (sys.path))
 
 The second command should display a list of those directories which Python searches for modules. If the directory which contains
-the Python Script is not show in this list, then invoke the following command;
+the Python Script is not shown in this list, then invoke the following command;
 
 	>>> sys.path = <Name_of_dir_containing_Python_Script> + sys.path
 
 This should add - by prepending to the front of the list of directories that Python searches for modules, the directory which contains
 the Python Script.
 
-Now, just invoke the following two commands;
+Now you should only have to invoke the following two commands in order to get the Python Script to run from within GIMP.
 
 	>>> import HelloWorld
 	>>> HelloWorld.displayMessage("Hello, World!")
