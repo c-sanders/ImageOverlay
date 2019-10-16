@@ -16,6 +16,9 @@ GIMP can be thought of as having two distinct relationships with Python;
 + Invoking Python code from within GIMP, using Python-Fu.
 + Writing Scripts or Plugins for GIMP in Python, using GIMP-Python.
 
+More information about Python-Fu can be found [here](https://docs.gimp.org/2.10/en/gimp-filters-python-fu.html), while further information
+about GIMP-Python can be found [here](http://www.jamesh.id.au/software/pygimp/).
+
 Invoking the Python Script interactively from within GIMP.
 ----------------------------------------------------------
 
