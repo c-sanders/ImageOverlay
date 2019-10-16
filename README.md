@@ -13,11 +13,22 @@ GIMP and its relationship to Python.
 
 GIMP can be thought of as having two distinct relationships with Python;
 
-+ Invoking Python code from within GIMP, using Python-Fu.
-+ Writing Scripts or Plugins for GIMP in Python, using GIMP-Python.
++ Python code can be invoked from within GIMP, by way of GIMP's Python-Fu facility.
++ Python can be used to write Scripts or Plugins for GIMP, by way of the GIMP-Python Python module.
 
 More information about Python-Fu can be found [here](https://docs.gimp.org/2.10/en/gimp-filters-python-fu.html), while further information
 about GIMP-Python can be found [here](http://www.jamesh.id.au/software/pygimp/).
+
+
+### Python-Fu.
+
+Python-Fu is a facility provided by GIMP, which enables Python code to be executed from within GIMP.
+
+
+### GIMP-Python.
+
+The majority of GIMP's functionality is implemented in the C Programming Language. Furthermore, this functionality is implemented within a C
+Library called libgimp. GIMP-Python is a Python module which provides a wrapper around this Library and in doing so, it provides Python bindings
 
 Invoking the Python Script interactively from within GIMP.
 ----------------------------------------------------------
