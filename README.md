@@ -8,6 +8,14 @@ Throughout the remainder of this documentation, the image that is being overlaid
 the image that is being overlaid onto, is referred to as the background image.
 
 
+GIMP and its relationship to Python.
+------------------------------------
+
+GIMP can be thought of as having two distinct relationships with Python;
+
++ Invoking Python code from within GIMP, using Python-Fu.
++ Writing Scripts or Plugins for GIMP in Python, using GIMP-Python.
+
 Invoking the Python Script interactively from within GIMP.
 ----------------------------------------------------------
 
@@ -15,7 +23,7 @@ To invoke the Python Script interactively, start up GIMP and then click;
 
   Filters > Python-Fu > Console
 
-Doing this should cause the following Panel to be displayed.
+Doing this should cause a Python Console Panel - similar to the following, to be displayed.
 
 ![Test image](/images/Panel_Python-Fu.png "GIMP's Python-Fu Console Panel")
 
