@@ -28,8 +28,9 @@ For the curious reader, more information about Python-Fu can be found [here](htt
 GIMP-Python.
 ------------
 
-The majority of GIMP's functionality is implemented in the C Programming Language. To be more precise, this functionality is implemented within a C
-Library which is called libgimp. GIMP-Python is a Python module which provides a wrapper around this Library and in doing so, it provides Python bindings
+The majority of GIMP's functionality is implemented using the C Programming Language. To be more precise, this functionality is implemented within a C
+Library which is called libgimp. GIMP-Python is a Python module which provides a wrapper around this Library and in doing so, provides Python bindings
+to the underlying C functionality.
 
 For the curious reader, more information about GIMP-Python can be found [here](http://www.jamesh.id.au/software/pygimp/).
 
