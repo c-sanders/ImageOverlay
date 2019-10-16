@@ -29,7 +29,7 @@ GIMP-Python.
 ------------
 
 The majority of GIMP's functionality is implemented in the C Programming Language. To be more precise, this functionality is implemented within a C
-Library called libgimp. GIMP-Python is a Python module which provides a wrapper around this Library and in doing so, it provides Python bindings
+Library which is called libgimp. GIMP-Python is a Python module which provides a wrapper around this Library and in doing so, it provides Python bindings
 
 For the curious reader, more information about GIMP-Python can be found [here](http://www.jamesh.id.au/software/pygimp/).
 
