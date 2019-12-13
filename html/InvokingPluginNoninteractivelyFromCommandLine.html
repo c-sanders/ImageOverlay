@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<script
+	  type="text/javascript"
+	  src="javascript/XRegExp.js"
+	>
+	</script>
+	<script
+	  type="text/javascript"
+	  src="javascript/shCore.js"
+	>
+	</script>
+	<script
+	  type="text/javascript"
+	  src="javascript/shBrushPlain.js"
+	>
+	</script>
+	
+	<link
+	  href="css/shCore.css"
+	  rel="stylesheet"
+	  type="text/css"
+	/>
+	<link
+	  href="css/shThemeEclipse.css"
+	  rel="stylesheet"
+	  type="text/css"
+	/>
+
+	<!-- CSS goes in the document HEAD or added to your external stylesheet -->
+
+	<link rel="stylesheet" type="text/css" href="css/misc.css">
+	<link rel="stylesheet" type="text/css" href="css/navbar_new.css">
+	<link rel="stylesheet" type="text/css" href="css/dropdown.css">
+	
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<meta charset="UTF-8"/>
+
+	<title>GIMP Plugin documentation</title>
+
+</head>
+
+<body>
+
+	<!--
+	<center>
+		<img
+		  src="images/svg/GravitasToolworks_logo.svg"
+		  alt="Gravitas Toolworks logo"
+		  scale="50%"
+		>
+	</center>
+	  -->
+	 
+	<div
+	  class="navbar"
+	>
+	
+	  <a href="#home">About</a>
+	  
+	  <div class="dropdown">
+	  
+		<button class="dropbtn">Invocation
+		  <i class="fa fa-caret-down"></i>
+		</button>
+		
+		<div
+		  class="dropdown-content"
+		>
+		  <a href="InvokePythonScriptFromWithinGimp.html">Invoke Python Script from within GIMP</a>
+		  <a href="InvokePluginFromWithinGimp.html">Invoke GIMP Plugin from within GIMP</a>
+		  <a href="InvokePluginFromCommandLine.html">Invoke GIMP Plugin from Command line</a>
+		</div>
+	  </div>
+		<a href="#news">Implementation</a>
+	</div>
+
+	<!-- <header> -->
+
+	<!-- </header> -->
+
+	<div
+	  class="main"
+	>
+
+	<h1>Invoking the Plugin non-interactively from the command line.</h1>
+
+	To invoke this Plugin non-interactively, issue a command from the command line which is similar to the following;<br>
+	<br>
+
+<div class="codeblock">
+
+<!--
+find /home/foo/images -name "foreground_image_[0-9].png" | \
+sort | \                                                      # Sort the list of foreground image filenmes.
+gimp --no-interface \                                         # Instruct GIMP to operate without using its (graphical user) interface. This causes GIMP to execute in a non-interactive manner.
+     --verbose \                                              # Instruct GIMP to operate in a verbose manner.
+     --console-messages \                                     # Instruct GIMP to process console messages.
+     --batch-interpreter="plug-in-script-fu-eval" \           # Instruct GIMP to use Python-Fu to interpret the following batch sub-commands.
+     --batch '(                                               # Start a batch sub-command.
+               python-fu-runPlugin-multiple-fromList          # Name of the Plugin the batch sub-command should execute.
+               RUN-NONINTERACTIVE                             # Instruct the Plugin to operate in a non-interactive manner.
+               "/home/foo/images/background_image.png"        # Filename which contains the background image.
+               "READ_LIST_FROM_STDIN"                         # Read the list of foreground image filenames from stdin.
+               ""                                             #
+               "/home/craig/temp/Animation_images_png/"       # Directory to save the resulting files into.
+               "PREPEND_FILENAME"                             # Create a new filename from a foreground image filename by prepending a suffix to the latter.
+               "Slide_"                                       # Suffix which should be used.
+               "DIAGNOSTIC_DATA_NONE"                         # Instruct the Plugin to not generate diagnostic data.
+              )' \                                            # End the current batch sub-command.
+     --batch '(                                               # Start another batch sub-command.
+               gimp-quit 0                                    # Instruct GIMP to quit, and in doing so, return a value of 0 to the program which invoked it.
+              )'                                              # End the current batch sub-command.
+-->
+
+<pre
+class="brush: plain"
+>
+find /home/foo/images -name "foreground_image_[0-9].png" | \
+sort | \
+gimp --no-interface \
+     --verbose \
+     --console-messages \
+     --batch-interpreter="plug-in-script-fu-eval" \
+     --batch '(
+               python-fu-runPlugin-multiple-fromList
+               RUN-NONINTERACTIVE
+               "/home/foo/images/background_image.png"
+               "READ_LIST_FROM_STDIN"
+               ""
+               "/home/craig/temp/Animation_images_png/"
+               "PREPEND_FILENAME"
+               "Slide_"
+               "DIAGNOSTIC_DATA_NONE"
+              )' \
+     --batch '(
+               gimp-quit 0
+              )'</pre>
+
+<!-- Finally, to actually run the highlighter, you need to include this JS on your page -->
+
+	<script type="text/javascript">
+		SyntaxHighlighter.all()
+	</script>
+
+</div>
+
+	<br>
+	<div class="note">
+	<div class="notice">
+	&#9995; A quick note about the syntax of this command.
+	</div>
+	<br>
+	The arguments to a batch sub-command should be placed within the batch sub-command's parentheses. These arguments seem to get passed directly to
+	GIMP, therefore they should not contain any shell special or control characters. For example, if the arguments contained one or more instances of the "\"
+	character, then GIMP might not know how to interpret them, and this could cause an error such as;<br>
+	<br>
+	batch command experienced an execution error: Error: ( : 1) eval: unbound variable: \
+	</div>
+
+	<br/>
+
+	<h2>High level description of the command.</h2>
+
+	The command can be thought of as being comprised of two parts.
+	
+	<br/>
+	<br/>
+
+	Part 1) The first part of the command is defined as follows;
+
+	<br/>
+	<br/>
+
+<div class="codeblock">
+
+<pre
+class="brush: plain"
+>
+find /home/foo/images -name "foreground_image_[0-9].png" | \
+sort |</pre>
+
+<!-- Finally, to actually run the highlighter, you need to include this JS on your page -->
+
+	<script type="text/javascript">
+		SyntaxHighlighter.all()
+	</script>
+
+</div>
+
+	<br/>
+
+	It uses the Unix <span style="font-family : courier ; font-size : 95%">find</span> utility to recursively search through a specified directory for all
+	those files whose filename matches a specified pattern. The list of all filenames which are found, is then piped into the Unix
+	<span style="font-family : courier ; font-size : 95%">sort</span> utility, which sorts the list into alphabetical order, before redirecting the resulting sorted
+	list into another Pipe.
+	
+	<br/>
+	<br/>
+
+	Part 2) The second part of the command is defined as follows;
+	
+<br/>
+<br/>
+
+<div class="codeblock">
+
+<pre
+class="brush: plain"
+>
+gimp --no-interface \
+     --verbose \
+     --console-messages \
+     --batch-interpreter="plug-in-script-fu-eval" \
+     --batch '(
+               python-fu-runPlugin-multiple-fromList
+               RUN-NONINTERACTIVE
+               "/home/foo/images/background_image.png"
+               "READ_LIST_FROM_STDIN"
+               ""
+               "/home/craig/temp/Animation_images_png/"
+               "PREPEND_FILENAME"
+               "Slide_"
+               "DIAGNOSTIC_DATA_NONE"
+              )' \
+     --batch '(
+               gimp-quit 0
+              )'</pre>
+
+<!-- Finally, to actually run the highlighter, you need to include this JS on your page -->
+
+<script type="text/javascript">
+	SyntaxHighlighter.all()
+</script>
+
+</div>
+
+	<br/>
+
+	It invokes the GIMP program, passing it six command line arguments in the process. The first four command line arguments are discussed below, while the last
+	two - i.e. the two batch arguments are about to receive some special scrutiny.
+
+	<br/>
+	<br/>
+
+	The GIMP <span style="font-family : courier ; font-size : 95%">--batch</span> command line argument, instructs GIMP to execute a batch command in a
+	non-interactive manner. The batch command - along with all of its arguments, should be contained within parentheses which follow the 
+	<span style="font-family : courier ; font-size : 95%">--batch</span> command line argument.
+
+	<br/>
+	<br/>
+
+	Batch command 1)
+	
+	<br/>
+	<br/>
+
+<div class="codeblock">
+
+<pre
+class="brush: plain"
+>
+--batch '(
+          python-fu-runPlugin-multiple-fromList
+          RUN-NONINTERACTIVE
+          "/home/foo/images/background_image.png"
+          "READ_LIST_FROM_STDIN"
+          ""
+          "/home/craig/temp/Animation_images_png/"
+          "PREPEND_FILENAME"
+          "Slide_"
+          "DIAGNOSTIC_DATA_NONE"
+         )'</pre>
+
+<!-- Finally, to actually run the highlighter, you need to include this JS on your page -->
+
+<script type="text/javascript">
+	SyntaxHighlighter.all()
+</script>
+
+</div>
+	
+	<br/>
+	
+	Once GIMP has set itself up according to the first four command line arguments, its next task is to run the first of the two batch commands.
+	
+	<br/>
+	<br/>
+
+	The arguments to a GIMP batch command should be contained within parentheses. The first argument for this batch command instructs GIMP to run the
+	Plugin which is called <span style="font-family : courier ; font-size : 95%">python-fu-runPlugin-multiple-fromList</span>. The remaining arguments
+	within the parentheses are passed as arguments to the Plugin when it is invoked.
+	
+	<br/>
+	<br/>
+	
+	Batch command 2)
+
+	<br/>
+	<br/>
+	
+<div class="codeblock">
+
+<pre
+class="brush: plain"
+>
+--batch '(
+          gimp-quit 0
+         )'</pre>
+
+<!-- Finally, to actually run the highlighter, you need to include this JS on your page -->
+
+<script type="text/javascript">
+	SyntaxHighlighter.all()
+</script>
+
+</div>
+
+	<br/>
+
+	Once GIMP has finished executing the first batch command, its next task is to run the second of the two batch commands.
+
+	<br/>
+	<br/>
+	
+	This batch command instructs GIMP to exit, i.e. shut itself down, gracefully. By shutting down gracefully, GIMP should return a value of 0 to the
+	process which invoked it in the first place.
+
+	<br/>
+	<br/>
+
+program will operate on each one of the foreground image files in this sorted list -
+	overlaying it onto a background image, before saving the resulting image.
+
+	<br/>
+	<br/>
+
+	<h2>Line by line description of the command.</h2>
+
+	The command which was just presented, might seem a little overwhelming. So to try and help explain what it is doing, each line of the command will now be
+	explained in turn.
+
+	<br/>
+	<br/>
+
+	<div
+	  class="code-snippet"
+	 >
+		<span style="font-family : Arial, Helvetica, Sans-serif">
+			&bull; Line 1 
+		</span>
+		<span style="font-size : 95%">
+			: find /home/foo/images -name "foreground_image_[0-9].png" |
+		</span>
+	</div>
+
+	<br/>
+
+	Instruct the Unix
+	<span
+	  style="font-family : courier ; font-size : 95%"
+	>
+	find
+	</span>
+	command line utility to recursively search through the specified directory
+	(<span style="font-family : courier ; font-size : 95%">/home/foo/images</span> in this case), for foreground image files whose filename matches the specified
+	pattern (<span style="font-family : courier ; font-size : 95%">"foreground_image_[0-9].png"</span>).
+	
+	<br/>
+	<br/>
+
+	Rather than displaying the resulting list of filenames on stdout, the redirection operator ( | ) redirects them into a Pipe instead.
+
+	<br/>
+	<br/>
+
+	<div
+	  class="code-snippet"
+	 >
+		<span style="font-family : Arial, Helvetica, Sans-serif">
+			&bull; Line 2 
+		</span>
+		<span style="font-size : 95%">
+			: sort |
+		</span>
+	</div>
+
+	<br/>
+
+	Instruct the Unix <span style="font-family : courier ; font-size : 95%">sort</span> command line utility to read the list of filenames from the aforementioned Pipe, and then sort them alphabetically.
+	Again, rather than displaying the resulting sorted list of filenames on stdout, redirect them into another Pipe instead.
+
+	<br/>
+	<br/>
+
+	<div
+	  class="code-snippet"
+	 >
+		<span style="font-family : Arial, Helvetica, Sans-serif">
+			&bull; Line 3 
+		</span>
+		<span style="font-size : 95%">
+			: gimp --no-interface
+		</span>
+	</div>
+	
+	<br/>
+
+	Start the GIMP program and in doing so, pass the --no-interface command line argument to it.
+	
+	<br/>
+	<br/>
+
+	This command line argument instructs GIMP to not start up its GUI (Graphical User Interface). This in turn will cause GIMP to execute in a non-interactive manner.
+
+	<br/>
+	<br/>
+
+	<div
+	  class="code-snippet"
+	 >
+		<span style="font-family : Arial, Helvetica, Sans-serif">
+			&bull; Line 4 
+		</span>
+		<span style="font-size : 95%">
+			: --verbose
+		</span>
+	</div>
+	
+	<br/>
+	
+	Pass the <span style="font-family : courier ; font-size : 95%">--verbose</span> command line argument to GIMP.
+	<br/>
+	<br/>
+	
+	This instructs GIMP to operate in a verbose manner.
+	
+	<br/>
+	<br/>
+
+	<div
+	  class="code-snippet"
+	 >
+		<span style="font-family : Arial, Helvetica, Sans-serif">
+			&bull; Line 5 
+		</span>
+		<span style="font-size : 95%">
+			: --messages
+		</span>
+	</div>
+	
+	<br/>
+	
+	Also instruct GIMP to process console messages.
+
+	<br/>
+	<br/>
+
+	<div
+	  class="code-snippet"
+	 >
+		<span style="font-family : Arial, Helvetica, Sans-serif">
+			&bull; Line 6 
+		</span>
+		<span style="font-size : 95%">
+			: --batch-interpreter="plug-in-script-fu-eval"
+		</span>
+	</div>
+
+
+	<br/>
+	Pass the <span style="font-family : courier ; font-size : 95%">--batch-interpreter</span> command line argument to GIMP.
+	<br/>
+	<br/>
+	A instruct GIMP to use Python-Fu to interpret any batch sub-commands which are passed to it.
+ 
+	<br/>
+	<br/>
+
+	<div
+	  class="code-snippet"
+	 >
+		<span style="font-family : Arial, Helvetica, Sans-serif">
+			&bull; Line 7 
+		</span>
+		<span style="font-size : 95%">
+			: --batch '(
+		</span>
+	</div>
+
+	<br/>
+	
+	Start a new batch sub-command which is to be executed by GIMP.
+
+	<br/>
+	<br/>
+
+	<div
+	  class="code-snippet"
+	 >
+		<span style="font-family : Arial, Helvetica, Sans-serif">
+			&bull; Line 8 
+		</span>
+		<span style="font-size : 95%">
+			: python-fu-runPlugin-multiple-fromList
+		</span>
+	</div>
+
+	<br/>
+
+	The name of the GIMP Plugin the batch sub-command should execute.
+
+	<br/>
+	<br/>
+
+	<div
+	  class="code-snippet"
+	 >
+		<span style="font-family : Arial, Helvetica, Sans-serif">
+			&bull; Line 9 
+		</span>
+		<span style="font-size : 95%">
+			: RUN-NONINTERACTIVE
+		</span>
+	</div>
+
+	<br/>
+	Pass this as an argument to the GIMP Plugin.
+	
+	<br/>
+	<br/>
+
+	This instruct this GIMP Plugin to operate in a non-interactive manner.
+
+	<br/>
+	<br/>
+
+	<div
+	  class="code-snippet"
+	 >
+		<span style="font-family : Arial, Helvetica, Sans-serif">
+			&bull; Line 10 
+		</span>
+		<span style="font-size : 95%">
+			: "/home/foo/images/background_image.png"
+		</span>
+	</div>
+
+	<br/>
+
+	The filename of the file which contains the background image.
+	
+	<br/>
+	<br/>
+
+	<div
+	  class="code-snippet"
+	 >
+		<span style="font-family : Arial, Helvetica, Sans-serif">
+			&bull; Line 11 
+		</span>
+		<span style="font-size : 95%">
+			: "READ_LIST_FROM_STDIN"
+		</span>
+	</div>
+
+	<br/>
+
+	Pass this as an argument to the GIMP Plugin.
+
+	<br/>
+	<br/>
+
+	This instructs the GIMP Plugin to read the list of foreground image filenames from stdin.
+
+	<br/>
+	<br/>
+
+<div
+  class="code-snippet"
+ >
+	<span style="font-family : Arial, Helvetica, Sans-serif">
+		&bull; Line 12 
+	</span>
+	<span style="font-size : 95%">
+		: ""
+	</span>
+</div>
+
+	<br/>
+	
+	Pass this as an argument to the GIMP Plugin.
+	
+	<br/>
+	<br/>
+	
+	This instructs the GIMP Plugin to do what?
+
+	<br/>
+	<br/>
+
+	<div
+	  class="code-snippet"
+	 >
+		<span style="font-family : Arial, Helvetica, Sans-serif">
+			&bull; Line 13 
+		</span>
+		<span style="font-size : 95%">
+			: "/home/craig/temp/Animation_images_png/"
+		</span>
+	</div>
+
+	<br/>
+	
+	Pass this as an argument to the GIMP Plugin.
+	
+	<br/>
+	<br/>
+	
+	This instructs the GIMP Plugin to save the resulting files into this directory.
+	
+	<br/>
+	<br/>
+
+	<div
+	  class="code-snippet"
+	 >
+		<span style="font-family : Arial, Helvetica, Sans-serif">
+			&bull; Line 14 
+		</span>
+		<span style="font-size : 95%">
+			: "PREPEND_FILENAME"
+		</span>
+	</div>
+
+	<br/>
+
+	Pass this as an argument to the GIMP Plugin.
+
+	<br/>
+	<br/>
+
+	This instructs the GIMP Plugin how it should create a new filename from the corresponding foreground image filename, to save the resulting file into.
+
+	<br/>
+	<br/>
+
+	The available options are;
+
+	<ul>
+		<li><span style="font-family : courier ; font-size : 95%">PREPEND_FILENAME</span></li>
+		<li><span style="font-family : courier ; font-size : 95%">APPEND_FILENAME</span></li>
+		<li><span style="font-family : courier ; font-size : 95%">PREPEND_FILENAME_EXT</span></li>
+		<li><span style="font-family : courier ; font-size : 95%">APPEND_FILENAME_EXT</span></li>
+	</ul>
+to create new filenames from foreground image filenames by prepending a suffix to the latter.
+	<br/>
+	<br/>
+
+	<div
+	  class="code-snippet"
+	 >
+		<span style="font-family : Arial, Helvetica, Sans-serif">
+			&bull; Line 15 
+		</span>
+		<span style="font-size : 95%">
+			: "Slide_"
+		</span>
+	</div>
+
+	<br/>
+	
+	Pass this as an argument to the GIMP Plugin.
+	
+	<br/>
+	<br/>
+	
+	This instructs the GIMP Plugin what value to use to create the new filename.
+	<br/>
+	<br/>
+	For example, if the filename of the foreground image file is /home/foo/images/image_1.png and PREPEND_FILENAME is set for the previous argument, then
+	<br/>
+	<br/>
+	/home/foo/images/image_1.png -> /home/foo/images/Slide_image_1.png
+
+	<br/>
+	<br/>
+
+	<div
+	  class="code-snippet"
+	 >
+		<span style="font-family : Arial, Helvetica, Sans-serif">
+			&bull; Line 16 
+		</span>
+		<span style="font-size : 95%">
+			: "DIAGNOSTIC_DATA_NONE"
+		</span>
+	</div>
+	
+	<br/>
+	
+	Pass this as an argument to the GIMP Plugin.
+	
+	<br/>
+	<br/>
+	
+	This instructs the GIMP Plugin to not generate disgnostic data.
+	<br/>
+	<br/>
+
+	<div
+	  class="code-snippet"
+	 >
+		<span style="font-family : Arial, Helvetica, Sans-serif">
+			&bull; Line 17 
+		</span>
+		<span style="font-size : 95%">
+			: )' \
+		</span>
+	</div>
+
+	<br/>
+	
+	End the current batch sub-command which is to be executed by GIMP.
+	
+	<br/>
+	<br/>
+
+	<div
+	  class="code-snippet"
+	 >
+		<span style="font-family : Arial, Helvetica, Sans-serif">
+			&bull; Line 18 
+		</span>
+		<span style="font-size : 95%">
+			: --batch '(
+		</span>
+	</div>
+
+	<br/>
+	
+	Start another new batch sub-command which is to be executed by GIMP.
+	
+	<br/>
+	<br/>
+
+	<div
+	  class="code-snippet"
+	 >
+		<span style="font-family : Arial, Helvetica, Sans-serif">
+			&bull; Line 19 
+		</span>
+		<span style="font-size : 95%">
+			: gimp-quit 0 \
+		</span>
+	</div>
+
+	<br/>
+
+	Instruct GIMP to quit and to return a return value of 0 to the process which invoked it.
+
+	<br/>
+	<br/>
+
+	<div
+	  class="code-snippet"
+	 >
+		<span style="font-family : Arial, Helvetica, Sans-serif">
+			&bull; Line 20 
+		</span>
+		<span style="font-size : 95%">
+			: )' \
+		</span>
+	</div>
+
+	<br/>
+	
+	End the current batch sub-command which is to be executed by GIMP.
+	
+	<br/>
+	<br/>
+
+<h3>
+
+</div>
+	<br>
+	As can be seen from the comments, the "READ_LIST_FROM_STDIN" argument to the Plugin, forces it to read the list of foreground image filenames from stdin. This is
+	the reason why stdin of the gimp command, is connected to stdout of the find command by way of a pipe.
+
+	</div>
+
+	<p
+	  id="demo"
+	>
+		JavaScript can change HTML content.
+	</p>
+
+	<button
+	  type="button"
+	  onclick="myFunction_a()"
+	>
+		Click Me!
+	</button>
+
+	<script>
+		function myFunction() {
+			alert("Hello!");
+		}
+
+		function myFunction_a()
+		{
+			var elementContent     = "",
+			    elementContent_new = "";
+
+			var index              = 0;
+
+			var currentLine;
+
+
+			// elementContent = document.getElementById("demo").innerHTML = "Hello JavaScript!"
+			elementContent = document.getElementById("annotated-command-line").innerHTML.split("\n");
+
+			console.log(elementContent);
+
+			elementContent_new = "<table>";
+
+			while (index < 20)
+			{
+				console.log(elementContent[index]);
+
+				index++;
+
+				elementContent_new += "<tr>";
+				elementContent_new += "<td>" + index + "</td>";
+				elementContent_new += "<td>" + elementContent[index - 1] + "</td>";
+				elementContent_new += "</tr>";
+			}
+
+			elementContent_new += "</table>";
+			
+			console.log(elementContent_new);
+			
+			document.getElementById("annotated-command-line").innerHTML = elementContent_new;
+		}
+	</script>
+
+	<script
+	  src="javascript/simple.js"
+	>
+	</script>
+
+</body>
